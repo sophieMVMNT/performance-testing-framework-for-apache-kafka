@@ -1,0 +1,359 @@
+Log CORE-351 - peformance test framework
+
+
+#-- install sdk
+~/code/example/performance-testing-framework-for-apache-kafka: (main) $ npm install -g aws-cdk
+
+
+#-- test install
+~/code/example/performance-testing-framework-for-apache-kafka: (main) $ cdk --version.
+2.85.0 (build 4e0d726)
+
+
+#-- setup cdk for Java
+https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-java.html
+
+~/code/example: $ mkdir aws-cdk-1
+~/code/example: $ cd aws-cdk-1/
+~/code/example: $ cd aws-cdk-1/
+~/code/example/aws-cdk-1: $ cdk init app --language java
+Applying project template app for java
+# Welcome to your CDK Java project!
+
+This is a blank project for CDK development with Java.
+
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
+
+It is a [Maven](https://maven.apache.org/) based project, so you can open this project with any Maven compatible Java IDE to build and run tests.
+
+## Useful commands
+
+ * `mvn package`     compile and run tests
+ * `cdk ls`          list all stacks in the app
+ * `cdk synth`       emits the synthesized CloudFormation template
+ * `cdk deploy`      deploy this stack to your default AWS account/region
+ * `cdk diff`        compare deployed stack with current state
+ * `cdk docs`        open CDK documentation
+
+Enjoy!
+
+Initializing a new git repository...
+Executing 'mvn package'
+/bin/sh: mvn: command not found
+Unable to package compiled code as JAR
+Please run 'mvn package'!
+✅ All done!
+
+~/code/example/aws-cdk-1: (main) $ ls -lrt
+total 12
+-rw-r--r-- 1 sophie.likit staff  675 Jun 23 09:09 README.md
+drwxr-xr-x 4 sophie.likit staff  128 Jun 23 09:09 src
+-rw-r--r-- 1 sophie.likit staff 2175 Jun 23 09:09 cdk.json
+-rw-r--r-- 1 sophie.likit staff 2096 Jun 23 09:09 pom.xml
+~/code/example/aws-cdk-1: (main) $
+
+
+#-- install maven
+brew install maven
+
+
+#-- working with CDK
+https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-java.html
+
+
+
+#-- cdk typescript
+https://docs.aws.amazon.com/cdk/v2/guide/work-with-cdk-typescript.html
+
+
+#-- AWS account = 295701509129
+#-- AWS region  = us-east-1
+#-- bootstrap with aws current account
+#-- https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html
+~/code/example/aws-cdk-ts: (main) $ cdk bootstrap aws://295701509129/us-east-1
+
+#-- or if there is a profile setup
+cdk bootstrap --profile <dev|prod|...>
+
+
+#-- cdk list 
+~/code/example/performance-testing-framework-for-apache-kafka/cdk: (main) $ cdk list
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                                                  !!
+!!  This software has not been tested with node v18.13.0.                           !!
+!!  You may to encounter runtime issues, and should switch to a supported release.  !!
+!!                                                                                  !!
+!!  As of the current release, supported versions of node are:                      !!
+!!  - ^12.7.0                                                                       !!
+!!  - ^14.5.0                                                                       !!
+!!  - ^16.3.0                                                                       !!
+!!  - ^17.3.0                                                                       !!
+!!                                                                                  !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+tms-msk-sandbox-vpc-perf-test-sophie
+tms-msk-sandbox-perf-test-sophie
+
+
+~/code/example/performance-testing-framework-for-apache-kafka/cdk: (main) $ cdk deploy tms-msk-sandbox-vpc-perf-test-sophie
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                                                  !!
+!!  This software has not been tested with node v18.13.0.                           !!
+!!  You may to encounter runtime issues, and should switch to a supported release.  !!
+!!                                                                                  !!
+!!  As of the current release, supported versions of node are:                      !!
+!!  - ^12.7.0                                                                       !!
+!!  - ^14.5.0                                                                       !!
+!!  - ^16.3.0                                                                       !!
+!!  - ^17.3.0                                                                       !!
+!!                                                                                  !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+✨  Synthesis time: 2.61s
+
+tms-msk-sandbox-vpc-perf-test-sophie: deploying...
+[0%] start: Publishing 571cff8f4a2b07a11a70e72428e0a9c4786bf87c8a9148e98a698fd5e8c36ec1:295701509129-us-east-1
+[100%] success: Published 571cff8f4a2b07a11a70e72428e0a9c4786bf87c8a9148e98a698fd5e8c36ec1:295701509129-us-east-1
+tms-msk-sandbox-vpc-perf-test-sophie: creating CloudFormation changeset...
+..
+..
+ ✅  tms-msk-sandbox-vpc-perf-test-sophie
+
+✨  Deployment time: 173.9s
+
+Outputs:
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet1Subnet536B997AFD4CC940 = subnet-03cd1c4dd48f256bd
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet2Subnet3788AAA1380949A3 = subnet-04f975b270a44eb32
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet3SubnetF258B56EC7CF32DD = subnet-0f498b73a4ff950f4
+Stack ARN:
+arn:aws:cloudformation:us-east-1:295701509129:stack/tms-msk-sandbox-vpc-perf-test-sophie/226bd4b0-11e1-11ee-bfaa-12d32a109459
+
+✨  Total time: 176.51s
+
+
+~/code/example/performance-testing-framework-for-apache-kafka/cdk: (main) $
+
+
+
+#-- verify in aws
+https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:
+
+
+
+~/code/example/performance-testing-framework-for-apache-kafka/cdk: (main) $ cdk deploy tms-msk-sandbox-perf-test-sophie
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                                                  !!
+!!  This software has not been tested with node v18.13.0.                           !!
+!!  You may to encounter runtime issues, and should switch to a supported release.  !!
+!!                                                                                  !!
+!!  As of the current release, supported versions of node are:                      !!
+!!  - ^12.7.0                                                                       !!
+!!  - ^14.5.0                                                                       !!
+!!  - ^16.3.0                                                                       !!
+!!  - ^17.3.0                                                                       !!
+!!                                                                                  !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Including dependency stacks: tms-msk-sandbox-vpc-perf-test-sophie
+
+✨  Synthesis time: 2.83s
+
+tms-msk-sandbox-vpc-perf-test-sophie
+tms-msk-sandbox-vpc-perf-test-sophie: deploying...
+[0%] start: Publishing 571cff8f4a2b07a11a70e72428e0a9c4786bf87c8a9148e98a698fd5e8c36ec1:295701509129-us-east-1
+[100%] success: Published 571cff8f4a2b07a11a70e72428e0a9c4786bf87c8a9148e98a698fd5e8c36ec1:295701509129-us-east-1
+
+ ✅  tms-msk-sandbox-vpc-perf-test-sophie (no changes)
+
+✨  Deployment time: 2.21s
+
+Outputs:
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet1Subnet536B997AFD4CC940 = subnet-03cd1c4dd48f256bd
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet2Subnet3788AAA1380949A3 = subnet-04f975b270a44eb32
+tms-msk-sandbox-vpc-perf-test-sophie.ExportsOutputRefVpcPrivateSubnet3SubnetF258B56EC7CF32DD = subnet-0f498b73a4ff950f4
+Stack ARN:
+arn:aws:cloudformation:us-east-1:295701509129:stack/tms-msk-sandbox-vpc-perf-test-sophie/226bd4b0-11e1-11ee-bfaa-12d32a109459
+
+✨  Total time: 5.04s
+
+tms-msk-sandbox-perf-test-sophie
+This deployment will make potentially sensitive changes according to your current security approval level (--require-approval broadening).
+Please confirm you intend to make the following modifications:
+
+IAM Statement Changes
+┌───┬─────────────────────────────────────────────┬────────┬─────────────────────────────────────────────┬───────────────────────────────────────────────┬───────────┐
+│   │ Resource                                    │ Effect │ Action                                      │ Principal                                     │ Condition │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${AWS679f53fac002430cb0da5b7982bd2287/Servi │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ ceRole.Arn}                                 │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${AWS::StackId}                             │ Allow  │ cloudformation:DescribeStacks               │ AWS:${SagemakerInstanceRole}                  │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${BatchEcsInstanceRole.Arn}                 │ Allow  │ sts:AssumeRole                              │ Service:ec2.amazonaws.com                     │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${ComputeEnvironment/Resource-Service-Insta │ Allow  │ sts:AssumeRole                              │ Service:batch.amazonaws.com                   │           │
+│   │ nce-Role.Arn}                               │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/DepleteCreditsStateMach │ Allow  │ states:StartExecution                       │ AWS:${StateMachine/Role}                      │           │
+│   │ ine}                                        │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/DepleteCreditsStateMach │ Allow  │ sts:AssumeRole                              │ Service:states.us-east-1.amazonaws.com        │           │
+│   │ ine/Role.Arn}                               │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/QueryClusterThroughputL │ Allow  │ lambda:InvokeFunction                       │ AWS:${DepleteCreditsSfn/DepleteCreditsStateMa │           │
+│   │ ambda.Arn}                                  │        │                                             │ chine/Role}                                   │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/QueryClusterThroughputL │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ ambda/ServiceRole.Arn}                      │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/TerminateCreditDepletio │ Allow  │ lambda:InvokeFunction                       │ AWS:${DepleteCreditsSfn/DepleteCreditsStateMa │           │
+│   │ nLambda.Arn}                                │        │                                             │ chine/Role}                                   │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/TerminateCreditDepletio │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ nLambda/ServiceRole.Arn}                    │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/UpdateDepletionParamete │ Allow  │ lambda:InvokeFunction                       │ AWS:${DepleteCreditsSfn/DepleteCreditsStateMa │           │
+│   │ rLambda.Arn}                                │        │                                             │ chine/Role}                                   │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${DepleteCreditsSfn/UpdateDepletionParamete │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ rLambda/ServiceRole.Arn}                    │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${JobQueue}                                 │ Allow  │ batch:SubmitJob                             │ AWS:${DepleteCreditsSfn/DepleteCreditsStateMa │           │
+│   │ arn:${AWS::Partition}:batch:us-east-1:29570 │        │                                             │ chine/Role}                                   │           │
+│   │ 1509129:job-definition/*                    │        │                                             │                                               │           │
+│ + │ ${JobQueue}                                 │ Allow  │ batch:SubmitJob                             │ AWS:${StateMachine/Role}                      │           │
+│   │ arn:${AWS::Partition}:batch:us-east-1:29570 │        │                                             │                                               │           │
+│   │ 1509129:job-definition/*                    │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${JobRole.Arn}                              │ Allow  │ sts:AssumeRole                              │ Service:ecs-tasks.amazonaws.com               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${PerformanceTestLogGroup.Arn}              │ Allow  │ logs:StartQuery                             │ AWS:${SagemakerInstanceRole}                  │           │
+│ + │ ${PerformanceTestLogGroup.Arn}              │ Allow  │ logs:FilterLogEvents                        │ AWS:${QueryProducerResultLambda/ServiceRole}  │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${QueryProducerResultLambda.Arn}            │ Allow  │ lambda:InvokeFunction                       │ AWS:${StateMachine/Role}                      │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${QueryProducerResultLambda/ServiceRole.Arn │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ }                                           │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${SagemakerInstanceRole.Arn}                │ Allow  │ sts:AssumeRole                              │ Service:sagemaker.amazonaws.com               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${StateMachine}                             │ Allow  │ states:StartExecution                       │ AWS:${AWS679f53fac002430cb0da5b7982bd2287/Ser │           │
+│   │                                             │        │                                             │ viceRole}                                     │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${StateMachine/Role.Arn}                    │ Allow  │ sts:AssumeRole                              │ Service:states.us-east-1.amazonaws.com        │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${UpdateTestParameterLambda.Arn}            │ Allow  │ lambda:InvokeFunction                       │ AWS:${StateMachine/Role}                      │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ ${UpdateTestParameterLambda/ServiceRole.Arn │ Allow  │ sts:AssumeRole                              │ Service:lambda.amazonaws.com                  │           │
+│   │ }                                           │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ *                                           │ Allow  │ batch:TerminateJob                          │ AWS:${JobRole}                                │           │
+│ + │ *                                           │ Allow  │ logs:GetQueryResults                        │ AWS:${SagemakerInstanceRole}                  │           │
+│ + │ *                                           │ Allow  │ ecr:GetAuthorizationToken                   │ AWS:${JobRole}                                │           │
+│ + │ *                                           │ Allow  │ batch:DescribeJobs                          │ AWS:${QueryProducerResultLambda/ServiceRole}  │           │
+│ + │ *                                           │ Allow  │ batch:TerminateJob                          │ AWS:${DepleteCreditsSfn/TerminateCreditDeplet │           │
+│   │                                             │        │                                             │ ionLambda/ServiceRole}                        │           │
+│ + │ *                                           │ Allow  │ batch:DescribeJobs                          │ AWS:${DepleteCreditsSfn/QueryClusterThroughpu │           │
+│   │                                             │        │ cloudwatch:GetMetricData                    │ tLambda/ServiceRole}                          │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:ecr:us-east-1:2957015 │ Allow  │ ecr:BatchCheckLayerAvailability             │ AWS:${JobRole}                                │           │
+│   │ 09129:repository/cdk-hnb659fds-container-as │        │ ecr:BatchGetImage                           │                                               │           │
+│   │ sets-295701509129-us-east-1                 │        │ ecr:GetDownloadUrlForLayer                  │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:events:us-east-1:2957 │ Allow  │ events:DescribeRule                         │ AWS:${DepleteCreditsSfn/DepleteCreditsStateMa │           │
+│   │ 01509129:rule/StepFunctionsGetEventsForBatc │        │ events:PutRule                              │ chine/Role}                                   │           │
+│   │ hJobsRule                                   │        │ events:PutTargets                           │                                               │           │
+│ + │ arn:${AWS::Partition}:events:us-east-1:2957 │ Allow  │ events:DescribeRule                         │ AWS:${StateMachine/Role}                      │           │
+│   │ 01509129:rule/StepFunctionsGetEventsForBatc │        │ events:PutRule                              │                                               │           │
+│   │ hJobsRule                                   │        │ events:PutTargets                           │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:events:us-east-1:2957 │ Allow  │ events:DescribeRule                         │ AWS:${StateMachine/Role}                      │           │
+│   │ 01509129:rule/StepFunctionsGetEventsForStep │        │ events:PutRule                              │                                               │           │
+│   │ FunctionsExecutionRule                      │        │ events:PutTargets                           │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:kafka:${AWS::Region}: │ Allow  │ kafka-cluster:Connect                       │ AWS:${JobRole}                                │           │
+│   │ ${AWS::AccountId}:cluster/tms-sandbox-clust │        │ kafka-cluster:DescribeCluster               │                                               │           │
+│   │ er/*                                        │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:kafka:${AWS::Region}: │ Allow  │ kafka-cluster:AlterGroup                    │ AWS:${JobRole}                                │           │
+│   │ ${AWS::AccountId}:group/tms-sandbox-cluster │        │ kafka-cluster:DescribeGroup                 │                                               │           │
+│   │ /*                                          │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:kafka:${AWS::Region}: │ Allow  │ kafka-cluster:*Topic*                       │ AWS:${JobRole}                                │           │
+│   │ ${AWS::AccountId}:topic/tms-sandbox-cluster │        │ kafka-cluster:ReadData                      │                                               │           │
+│   │ /*                                          │        │ kafka-cluster:WriteData                     │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:states:${AWS::Region} │ Allow  │ states:DescribeExecution                    │ AWS:${SagemakerInstanceRole}                  │           │
+│   │ :${AWS::AccountId}:execution:${StateMachine │        │                                             │                                               │           │
+│   │ 2E01A3A5.Name}:*                            │        │                                             │                                               │           │
+├───┼─────────────────────────────────────────────┼────────┼─────────────────────────────────────────────┼───────────────────────────────────────────────┼───────────┤
+│ + │ arn:${AWS::Partition}:states:us-east-1:2957 │ Allow  │ states:DescribeExecution                    │ AWS:${StateMachine/Role}                      │           │
+│   │ 01509129:execution:{"Fn::Select":[6,"{\"Fn: │        │ states:StopExecution                        │                                               │           │
+│   │ :Split\":[\":\",\"${DepleteCreditsSfnDeplet │        │                                             │                                               │           │
+│   │ eCreditsStateMachineEB2F8443}\"]}"]}*       │        │                                             │                                               │           │
+└───┴─────────────────────────────────────────────┴────────┴─────────────────────────────────────────────┴───────────────────────────────────────────────┴───────────┘
+IAM Policy Changes
+┌───┬─────────────────────────────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────┐
+│   │ Resource                                                        │ Managed Policy ARN                                                                     │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${AWS679f53fac002430cb0da5b7982bd2287/ServiceRole}              │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${BatchEcsInstanceRole}                                         │ arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role │
+│ + │ ${BatchEcsInstanceRole}                                         │ arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore                     │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${ComputeEnvironment/Resource-Service-Instance-Role}            │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSBatchServiceRole                 │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${DepleteCreditsSfn/QueryClusterThroughputLambda/ServiceRole}   │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${DepleteCreditsSfn/TerminateCreditDepletionLambda/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${DepleteCreditsSfn/UpdateDepletionParameterLambda/ServiceRole} │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${JobRole}                                                      │ arn:${AWS::Partition}:iam::aws:policy/ReadOnlyAccess                                   │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${QueryProducerResultLambda/ServiceRole}                        │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+├───┼─────────────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┤
+│ + │ ${UpdateTestParameterLambda/ServiceRole}                        │ arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole         │
+└───┴─────────────────────────────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────┘
+(NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
+
+Do you wish to deploy these changes (y/n)?
+
+
+..
+
+
+#-- verify in cdk stack for msk perf test stack
+https://us-east-1.console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks?filteringText=sophie&filteringStatus=active&viewNested=true
+
+
+https://aws.amazon.com/blogs/developer/announcing-the-end-of-support-for-node-js-12-x-in-the-aws-sdk-for-javascript-v3/#:~:text=Starting%20November%201%2C%202022%2C%20AWS,you%20to%20upgrade%20to%20Node.
+
+
+tms-msk-sandbox-perf-test-sophie: creating CloudFormation changeset...
+12:48:17 PM | CREATE_FAILED        | AWS::Lambda::Function            | AWS679f53fac002430...7982bd22872D164C4C
+Resource handler returned message: "The runtime parameter of nodejs12.x is no longer supported for creating or updating AWS Lambda functions. We recommend
+you use the new runtime (nodejs18.x) while creating or updating functions. (Service: Lambda, Status Code: 400, Request ID: 79075d95-81be-46dd-9b73-772da7e
+598fc)" (RequestToken: 5253c2b9-42c2-c064-26fb-40ba6343b8e5, HandlerErrorCode: InvalidRequest)
+
+12:48:45 PM | DELETE_FAILED        | AWS::IAM::InstanceProfile        | BatchEcsInstanceProfile
+Resource handler returned message: "null (Service: Iam, Status Code: 500, Request ID: 3bd4a6dc-c26e-46ec-8e24-ac60311d3742)" (RequestToken: 6f2a03c2-4268-
+97e2-0dab-afa02e613916, HandlerErrorCode: GeneralServiceException)
+
+12:48:52 PM | DELETE_FAILED        | AWS::IAM::Role                   | BatchEcsInstanceRoleA6911BD4
+Cannot delete entity, must remove roles from instance profile first. (Service: AmazonIdentityManagement; Status Code: 409; Error Code: DeleteConflict; Req
+uest ID: c4848d2d-0c83-48cb-ad54-9d93182b1d77; Proxy: null)
+
+
+
+ ❌  tms-msk-sandbox-perf-test-sophie failed: Error: The stack named tms-msk-sandbox-perf-test-sophie failed creation, it may need to be manually deleted from the AWS console: ROLLBACK_FAILED (The following resource(s) failed to delete: [BatchEcsInstanceRoleA6911BD4, BatchEcsInstanceProfile]. )
+    at waitForStackDeploy (/Users/sophie.likit/code/example/performance-testing-framework-for-apache-kafka/cdk/node_modules/aws-cdk/lib/api/util/cloudformation.ts:307:11)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at prepareAndExecuteChangeSet (/Users/sophie.likit/code/example/performance-testing-framework-for-apache-kafka/cdk/node_modules/aws-cdk/lib/api/deploy-stack.ts:355:26)
+    at CdkToolkit.deploy (/Users/sophie.likit/code/example/performance-testing-framework-for-apache-kafka/cdk/node_modules/aws-cdk/lib/cdk-toolkit.ts:208:24)
+    at initCommandLine (/Users/sophie.likit/code/example/performance-testing-framework-for-apache-kafka/cdk/node_modules/aws-cdk/lib/cli.ts:310:12)
+
+The stack named tms-msk-sandbox-perf-test-sophie failed creation, it may need to be manually deleted from the AWS console: ROLLBACK_FAILED (The following resource(s) failed to delete: [BatchEcsInstanceRoleA6911BD4, BatchEcsInstanceProfile]. )
+
+git@github.com:sophieMVMNT/performance-testing-framework-for-apache-kafka.git
+performance-testing-framework-for-apache-kafka: (
+
+
